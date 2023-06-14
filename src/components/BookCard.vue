@@ -12,12 +12,17 @@
     >
         <b-card-text>
             <div>
-                <span class="font-weight-bold">Price:</span>
-                {{ book.price }}<i class="las la-euro-sign"></i>
+                <h6 class="font-weight-bold">Authors:</h6>
+                <span class="truncated-text">{{ book.authors }}</span> 
             </div>
 
             <div>
-                <span class="font-weight-bold">Copies purchased:</span>
+                <h6 class="font-weight-bold">Price:</h6>
+                {{ book.price }}<i class="las la-euro-sign"></i> 
+            </div>
+
+            <div>
+                <h6 class="font-weight-bold">Copies purchased:</h6>
                 {{ book.copies_purchased }}
             </div>
             
@@ -29,15 +34,36 @@
                     size="lg"
                     no-border
                     color="#ff8800"
-                    class="p-0 mt-2"
+                    class="p-0"
                     style="background-color: #f8f9fa;"
                 />
             </div>
+
+            <div>
+                <b-button 
+                    pill 
+                    variant="outline-primary" 
+                    size="sm" 
+                    class="py-2 px-3"
+                    v-b-modal="`show-book-${book.id}-summary-modal`"
+                >
+                    Summary
+                </b-button>
+            </div>
+
+            <div>
+                <small class="text-muted d-block">Date published: {{ book.date_published }}</small>
+            </div>
         </b-card-text>
 
-        <b-card-text class="mt-3">
-            <small class="text-muted d-block">Date published: {{ book.date_published }}</small>
-        </b-card-text>
+        <b-modal
+            :id="`show-book-${book.id}-summary-modal`"
+            :title="`${book.name} summary`"
+            centered
+            hide-footer
+        >
+            <p class="text-justify">{{ book.summary }}</p>
+        </b-modal>
     </b-card>
 </template>
 
@@ -46,7 +72,7 @@
         props: {
             book: {
                 type: Object,
-                default: () => ({}),
+                required: true,
             },
             imgHeight: {
                 type: Number,
@@ -67,3 +93,37 @@
         },
     };
 </script>
+
+<style scoped>
+    .card-title {
+        text-align: center !important;
+        font-size: 1.2rem;
+    }
+
+    .truncated-text, .card-title {
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+
+    .truncated-text:hover, .card-title:hover {
+        overflow: visible; 
+        white-space: normal;
+        height: auto;
+    }
+
+    .card-body {
+        overflow: hidden;
+    }
+
+    .card-text > div {
+        text-align: center !important;
+    }
+
+    .card-text > div:not(:last-child) {
+        margin-bottom: 0.5rem !important;
+    }
+</style>

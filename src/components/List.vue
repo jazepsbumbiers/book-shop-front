@@ -63,6 +63,11 @@
                 }));
             },
         },
+        watch: {
+            books(items) {
+                this.$emit('items-loaded', items);
+            },
+        },
         created() {
             this.fetchData();
         },
