@@ -51,6 +51,17 @@ const actions = {
 
         commit('setItems', books);
     },
+    async buyBook ({ commit, dispatch }, book) {
+        commit('setLoading', true);
+
+        const { bookId, copies } = book;
+        
+        await getRequest('/books/buy', {bookId, copies});
+
+        commit('setLoading', false);
+        
+        dispatch('fetchBooks');
+    },
 };
 
 const getters = {

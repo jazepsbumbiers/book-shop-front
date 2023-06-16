@@ -57,6 +57,12 @@
             </div>
 
             <div>
+                <BuyBookControls 
+                    @buy="copies => buyBook({ bookId: book.id, copies })"
+                />
+            </div>
+
+            <div>
                 <small class="text-muted d-block">Date published: {{ book.date_published }}</small>
             </div>
         </b-card-text>
@@ -74,7 +80,13 @@
 </template>
 
 <script>
+    import BuyBookControls from '@/components/BuyBookControls';
+    import { mapActions } from 'vuex';
+
     export default {
+        components: {
+            BuyBookControls,
+        },
         props: {
             book: {
                 type: Object,
@@ -96,6 +108,11 @@
                 type: String,
                 default: 'article',
             },
+        },
+        methods: {
+            ...mapActions([
+                'buyBook',
+            ]),
         },
     };
 </script>
