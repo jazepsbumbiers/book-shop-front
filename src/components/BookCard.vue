@@ -44,16 +44,13 @@
                 />
             </div>
 
-            <div>
-                <b-button 
-                    pill 
-                    variant="outline-primary" 
-                    size="sm" 
-                    class="py-2 px-3"
+            <div style="margin-bottom: 1rem !important;">
+                <a
+                    href="javascript:void(0);"
                     v-b-modal="`show-book-${book.id}-summary-modal`"
                 >
                     Summary
-                </b-button>
+                </a>
             </div>
 
             <div>
@@ -69,11 +66,10 @@
 
         <b-modal
             :id="`show-book-${book.id}-summary-modal`"
-            :title="book.name"
+            :title="`Book <${book.name}> summary`"
             hide-footer
             centered
         >
-            <h5 class="text-muted text-center">Summary:</h5>
             <p class="text-justify">{{ book.summary }}</p>
         </b-modal>
     </b-card>
