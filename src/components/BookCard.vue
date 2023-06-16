@@ -23,12 +23,12 @@
 
             <div>
                 <h6 class="font-weight-bold">Copies sold (this month):</h6>
-                {{ book.copies_sold_in_month }}
+                {{ book.copies_sold_in_period }}
             </div>
 
             <div>
                 <h6 class="font-weight-bold">Copies sold (total):</h6>
-                {{ book.copies_sold_in_total }}
+                {{ book.copies_sold_in_total ?? book.copies_sold_in_period }}
             </div>
             
             <div>

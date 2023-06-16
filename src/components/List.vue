@@ -48,10 +48,11 @@
             ...mapGetters({
                 items: 'getItems',
                 loading: 'getLoading',
+                url: 'getUrl',
             }),
         },
         created() {
-           this.fetchBooks();
+           this.fetchBooks(this.url);
         },
         methods: {
             ...mapActions([
