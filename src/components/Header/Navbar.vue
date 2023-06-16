@@ -25,7 +25,6 @@
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <Search
-                        :search-allowed="searchAllowed"
                         class="mr-3"
                     />
                 </b-nav-form>
@@ -74,10 +73,6 @@
                         path: '/top-10',
                     },
                 ]),
-            },
-            searchAllowed: {
-                type: Boolean,
-                default: true,
             },
         },
         methods: {

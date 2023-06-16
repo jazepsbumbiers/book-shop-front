@@ -1,12 +1,9 @@
 <template>
     <div>
-        <Header
-            :search-allowed="searchAllowed"
-        />
+        <Header />
 
         <router-view
             ref="router"
-            @items-loaded="(items) => this.setSearchAbility(items)"
         />
     </div>
 </template>
@@ -17,16 +14,6 @@
     export default {
         components: {
             Header,
-        },
-        data() {
-            return {
-                searchAllowed: false,
-            };
-        },
-        methods: {
-            setSearchAbility(items) {
-                this.searchAllowed = Boolean(items.length);
-            },
         },
     };
 </script>

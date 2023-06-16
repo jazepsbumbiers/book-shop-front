@@ -1,8 +1,6 @@
 <template>
     <div>
-        <Navbar
-            v-bind="{...$props}"
-        />
+        <Navbar />
     </div>
 </template>
 
@@ -12,12 +10,6 @@
     export default {
         components: {
             Navbar,
-        },
-        props: {
-            searchAllowed: {
-                type: Boolean,
-                default: true,
-            },
         },
     };
 </script>

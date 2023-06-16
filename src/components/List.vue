@@ -38,49 +38,25 @@
 
 <script>
     import BookCard from '@/components/BookCard';
-    import { localAPI } from '../services/api';
-    import moment from 'moment';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
         components: {
             BookCard,
         },
-        props: {
-            //
-        },
-        data() {
-            return {
-                loading: false,
-                books: [],
-            };
-        },
         computed: {
-            items() {
-                return this.books.map(item => ({
-                    ...item,
-                    date_published: moment(item.date_published).format('DD.MM.YYYY'),
-                    authors: item.authors.map(author => `${author.name} ${author.surname}`).join(', ') || '-',
-                }));
-            },
-        },
-        watch: {
-            books(items) {
-                this.$emit('items-loaded', items);
-            },
+            ...mapGetters({
+                items: 'getItems',
+                loading: 'getLoading',
+            }),
         },
         created() {
-            this.fetchData();
+           this.fetchBooks();
         },
         methods: {
-            async fetchData() {
-                this.loading = true;
-
-                const response = await localAPI.get(`/books`);
-
-                this.books = response.data;
-
-                this.loading = false;
-            },
+            ...mapActions([
+                'fetchBooks',
+            ]),
         },
     };
 </script>

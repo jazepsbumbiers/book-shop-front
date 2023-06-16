@@ -4,7 +4,7 @@
             v-model.trim="query"
             :debounce="750"
             :placeholder="placeholder"
-            :disabled="!searchAllowed"
+            :disabled="searchDisabled"
         />
 
         <b-input-group-append>
@@ -20,14 +20,10 @@
 </template>
 
 <script>
-    import { localAPI } from '../../services/api';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
         props: {
-            searchAllowed: {
-                type: Boolean,
-                default: true,
-            },
             placeholder: {
                 type: String,
                 default: 'Enter book name / author',
@@ -39,16 +35,25 @@
             };
         },
         computed: {
+            ...mapGetters({
+                initialItems: 'getInitialItems',
+            }),
             clearSearchDisabled() {
                 return Boolean(!this.query.length);
             },
+            searchDisabled() {
+                return Boolean(!this.initialItems.length);
+            },
         },
         watch: {
-            async query(value) {
-                const response = await localAPI.get(`/books?query=${value}`);
-
-                console.log(response.data);
+            query(value) {
+                this.searchBooks(value);
             },
+        },
+        methods: {
+            ...mapActions([
+                'searchBooks',
+            ]),
         },
     };
 </script>
