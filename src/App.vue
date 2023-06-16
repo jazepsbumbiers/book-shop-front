@@ -2,9 +2,15 @@
     <div>
         <Header />
 
-        <router-view
-            ref="router"
-        />
+        <transition
+            mode="out-in"
+            enter-active-class="animate__animated animate__fadeInDown"
+            leave-active-class="animate__animated animate__fadeOutDown"
+        >
+            <router-view
+                ref="router"
+            />
+        </transition>
     </div>
 </template>
 

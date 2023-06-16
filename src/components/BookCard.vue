@@ -54,8 +54,8 @@
             </div>
 
             <div>
-                <BuyBookControls 
-                    @buy="copies => buyBook({ bookId: book.id, copies })"
+                <BuyBookControls
+                    :book-id="book.id"
                 />
             </div>
 
@@ -77,7 +77,6 @@
 
 <script>
     import BuyBookControls from '@/components/BuyBookControls';
-    import { mapActions } from 'vuex';
 
     export default {
         components: {
@@ -104,11 +103,6 @@
                 type: String,
                 default: 'article',
             },
-        },
-        methods: {
-            ...mapActions([
-                'buyBook',
-            ]),
         },
     };
 </script>
