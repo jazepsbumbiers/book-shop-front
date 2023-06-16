@@ -22,8 +22,13 @@
             </div>
 
             <div>
-                <h6 class="font-weight-bold">Copies purchased:</h6>
-                {{ book.copies_purchased }}
+                <h6 class="font-weight-bold">Copies sold (this month):</h6>
+                {{ book.copies_sold_in_month }}
+            </div>
+
+            <div>
+                <h6 class="font-weight-bold">Copies sold (total):</h6>
+                {{ book.copies_sold_in_total }}
             </div>
             
             <div>
@@ -58,10 +63,11 @@
 
         <b-modal
             :id="`show-book-${book.id}-summary-modal`"
-            :title="`${book.name} summary`"
-            centered
+            :title="book.name"
             hide-footer
+            centered
         >
+            <h5 class="text-muted text-center">Summary:</h5>
             <p class="text-justify">{{ book.summary }}</p>
         </b-modal>
     </b-card>
