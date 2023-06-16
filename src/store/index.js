@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { getRequest } from '../services/api';
+import { getRequest, endPoints } from '../services/api';
 import { parseItems } from '../helpers/book';
 
 Vue.use(Vuex);
 
 const state = () => ({
     loading: false,
-    url: '/books',
+    url: '/api/books',
     items: [],
     initialItems: [],
 });
@@ -43,7 +43,7 @@ const actions = {
         commit('setInitialItems', books);
         commit('setItems', books);
     },
-    async searchBooks ({ commit, dispatch, getters }, { url, query }) {
+    async searchBooks ({ commit, dispatch, getters }, query) {
         if (!query) {
             dispatch('fetchBooks', getters.getUrl);
             return;
@@ -51,7 +51,7 @@ const actions = {
 
         commit('setLoading', true);
 
-        const response = await getRequest(url, {query});
+        const response = await getRequest(getters.getUrl, {query});
         const books = response?.data ?? [];
 
         commit('setLoading', false);
@@ -63,7 +63,7 @@ const actions = {
 
         const { bookId, copies } = book;
         
-        await getRequest('/books/buy', {bookId, copies});
+        await getRequest(endPoints?.buy ?? '/books/buy', {bookId, copies});
 
         commit('setLoading', false);
         

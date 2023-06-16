@@ -47,11 +47,7 @@
         },
         watch: {
             query(value) {
-                const url = this.$route.name === 'Home'
-                    ? '/books'
-                    : '/api/books/top-10';
-
-                this.searchBooks({url, query: value});
+                this.searchBooks(value);
             },
         },
         methods: {

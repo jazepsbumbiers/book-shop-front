@@ -16,6 +16,7 @@
 
 <script>
     import Header from '@/components/Header';
+    import { endPoints } from './services/api';
     import { mapActions } from 'vuex';
 
     export default {
@@ -23,12 +24,14 @@
             Header,
         },
         watch: {
-            $route(route) {
-                const url = route.name === 'Home'
-                    ? '/books'
-                    : '/api/books/top-10';
+            $route: {
+                handler(route) {
+                    const endPoint = route.name === 'Home' ? 'index' : 'top10';
+                    const url = endPoints[endPoint] ?? (endPoint === 'index' ? '/books' : '/books/top-10');                    
                     
-                this.setUrl(url);
+                    this.setUrl(url);
+                },
+                immediate: true,
             },
         },
         methods: {

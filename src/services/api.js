@@ -1,8 +1,14 @@
 import axios from 'axios';
 
 export const localAPI = axios.create({
-    baseURL: 'http://localhost:80',
+    baseURL: 'http://localhost:80/api',
 });
+
+export const endPoints = {
+    index: '/books',
+    top10: '/books/top-10',
+    buy: '/books/buy',
+};
 
 export const getRequest = async (url, params = {}) => {
     let response = null;
