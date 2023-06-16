@@ -14,7 +14,7 @@
                 size="sm"
                 @click="requestBuyBook" 
             >
-                <i class="las la-shopping-cart" style="font-size: 24px;"></i>
+                <i class="las la-shopping-cart" style="font-size: 16px;"></i>
             </b-button>
         </b-input-group-append>
     </b-input-group>
