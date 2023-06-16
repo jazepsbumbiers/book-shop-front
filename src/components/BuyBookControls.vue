@@ -43,6 +43,17 @@
                 this.buyBook({ bookId: this.bookId, copies: this.value });
                 
                 this.value = 1;
+
+                this.$bvToast.toast(
+                    'Book bought successfully',
+                    {
+                        title: 'Item bought',
+                        variant: 'success',
+                        toaster: 'b-toaster-top-right',
+                        toastClass: 'mb-2 mr-2',
+                        solid: true,
+                    }
+                );
             },
         },
     };
