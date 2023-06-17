@@ -66,10 +66,11 @@
 
         <b-modal
             :id="`show-book-${book.id}-summary-modal`"
-            :title="`Book <${book.name}> summary`"
+            title="Summary"
             hide-footer
             centered
         >
+            <small class="text-muted d-block">Book: {{ book.name }}</small> <hr>
             <p class="text-justify">{{ book.summary }}</p>
         </b-modal>
     </b-card>
@@ -138,5 +139,9 @@
 
     .card-text > div:not(:last-child) {
         margin-bottom: 0.5rem !important;
+    }
+
+    .card-text > div:last-child {
+        margin-top: 1rem !important;
     }
 </style>
