@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { getRequest, endPoints } from '../services/api';
-import { parseItems } from '../helpers/book';
+import { getRequest, endPoints } from '@/services/api';
+import { parseItems } from '@/helpers/book';
 
 Vue.use(Vuex);
 

@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
-import './bootstrap';
-import App from './App';
-import router from './router';
-import store from './store';
+import '@/bootstrap';
+import App from '@/App';
+import router from '@/router';
+import store from '@/store';
 
 new Vue({
     router,
