@@ -32,6 +32,10 @@ router.beforeEach((to, from, next) => {
 
     store.dispatch('setUrl', url);
 
+    if (store.getters.getSearchTerm) {
+        store.dispatch('setSearchTerm', { query: '', refreshItems: false });
+    }
+
     next();
 });
 

@@ -11,6 +11,7 @@ const state = () => ({
     url: '/api/books',
     items: [],
     initialItems: [],
+    searchTerm: '',
 });
 
 const mutations = {
@@ -26,11 +27,21 @@ const mutations = {
     setInitialItems (state, items) {
         state.initialItems = parseItems(items);
     },
+    setSearchTerm (state, query) {
+        state.searchTerm = query;
+    },
 };
 
 const actions = {
     setUrl ({ commit }, url) {
         commit('setUrl', url);
+    },
+    setSearchTerm ({ commit, dispatch }, { query, refreshItems = true}) {
+        commit('setSearchTerm', query);
+
+        if (refreshItems) {
+            dispatch('searchBooks');
+        }
     },
     async fetchBooks ({ commit, getters }) {
         commit('setLoading', true);
@@ -43,15 +54,15 @@ const actions = {
         commit('setInitialItems', books);
         commit('setItems', books);
     },
-    async searchBooks ({ commit, dispatch, getters }, query) {
-        if (!query) {
+    async searchBooks ({ commit, dispatch, getters }) {
+        if (!getters.getSearchTerm) {
             dispatch('fetchBooks', getters.getUrl);
             return;
         }
 
         commit('setLoading', true);
 
-        const response = await getRequest(getters.getUrl, {query});
+        const response = await getRequest(getters.getUrl, {query: getters.getSearchTerm});
         const books = response?.data ?? [];
 
         commit('setLoading', false);
@@ -76,6 +87,7 @@ const getters = {
     getUrl: state => state.url,
     getItems: state => state.items,
     getInitialItems: state => state.initialItems,
+    getSearchTerm: state => state.searchTerm,
 };
 
 export default new Vuex.Store({

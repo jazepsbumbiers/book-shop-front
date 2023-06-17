@@ -37,6 +37,7 @@
         computed: {
             ...mapGetters({
                 initialItems: 'getInitialItems',
+                searchTerm: 'getSearchTerm',
             }),
             clearSearchDisabled() {
                 return Boolean(!this.query.length);
@@ -47,12 +48,16 @@
         },
         watch: {
             query(value) {
-                this.searchBooks(value);
+                this.setSearchTerm({ query: value });
+            },
+            // FIXME: this causes double data fetch on page laod
+            searchTerm(value) {
+                this.query = value;
             },
         },
         methods: {
             ...mapActions([
-                'searchBooks',
+                'setSearchTerm',
             ]),
         },
     };
