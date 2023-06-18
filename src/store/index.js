@@ -46,7 +46,23 @@ const actions = {
     async fetchBooks ({ commit, getters }) {
         commit('setLoading', true);
 
-        const response = await getRequest(getters.getUrl);
+        const { response, errors } = await getRequest(getters.getUrl);
+
+        const hasErrors = Boolean(Object.keys(errors).length);
+
+        if (hasErrors) {
+            this._vm.$bvToast.toast(
+                errors.message,
+                {
+                    title: 'Error',
+                    variant: 'danger',
+                    toaster: 'b-toaster-top-right',
+                    toastClass: 'mb-2 mr-2',
+                    solid: true,
+                }
+            );
+        }
+
         const books = response?.data ?? [];
 
         commit('setLoading', false);
@@ -62,7 +78,7 @@ const actions = {
 
         commit('setLoading', true);
 
-        const response = await getRequest(getters.getUrl, {query: getters.getSearchTerm});
+        const { response } = await getRequest(getters.getUrl, {query: getters.getSearchTerm});
         const books = response?.data ?? [];
 
         commit('setLoading', false);

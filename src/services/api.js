@@ -11,7 +11,9 @@ export const endPoints = {
 };
 
 export const getRequest = async (url, params = {}) => {
-    let response = null;
+    let response = {};
+    let errors = {};
+
     const query = Object.keys(params)
         .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
         .join('&');
@@ -23,8 +25,14 @@ export const getRequest = async (url, params = {}) => {
     try {
         response = await localAPI.get(url);
     } catch (error) {
-        throw new Error(error);
+        const statusCode = error.response?.status ?? 500;
+        const { message } = error.response?.data ?? { message: 'There has been an internal server error' };
+
+        errors = { statusCode, message };
     }
 
-    return response;
+    return {
+        response,
+        errors,
+    };
 };
