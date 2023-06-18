@@ -22,13 +22,13 @@
             </div>
 
             <div>
-                <h6 class="font-weight-bold">Copies sold (this month):</h6>
+                <h6 class="font-weight-bold">{{ copiesSoldInPeriodText }}:</h6>
                 {{ book.copies_sold_in_period }}
             </div>
 
-            <div>
+            <div v-if="$route.name === 'Home'">
                 <h6 class="font-weight-bold">Copies sold (total):</h6>
-                {{ book.copies_sold_in_total ?? book.copies_sold_in_period }}
+                {{ book.copies_sold_in_total }}
             </div>
             
             <div>
@@ -103,6 +103,13 @@
             tag: {
                 type: String,
                 default: 'article',
+            },
+        },
+        computed: {
+            copiesSoldInPeriodText() {
+                const timePeriod = this.$route.name === 'Home' ? 'this month' : 'total';
+
+                return `Copies sold (${timePeriod})`;
             },
         },
     };
